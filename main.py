@@ -164,11 +164,20 @@ def sync_download():
             author_folder = f"@{video['channel_id']} [{video['uploader']}]"
             output_template = os.path.join(TEMP_DOWNLOAD_PATH, author_folder, '%(title)s [%(id)s].%(ext)s')
             
+            # 构建下载命令 - 添加网络控制参数
             cmd = [
                 'yt-dlp', '--cookies-from-browser', BROWSER,
                 '-f', FORMAT,
                 '--write-subs', '--no-write-auto-subs', '--sub-langs', SUB_LANGS,
                 '--embed-thumbnail', '--add-metadata',
+                '--limit-rate', LIMIT_RATE,  # 限速
+                '--retries', str(RETRIES),  # 重试次数
+                '--sleep-requests', str(RETRY_SLEEP),  # 请求间隔
+                '--sleep-interval', str(RETRY_SLEEP),  # 下载间隔
+                '--buffer-size', BUFFER_SIZE,  # 缓冲区大小
+                '--concurrent-fragments', str(CONCURRENT_FRAGMENTS),  # 并发控制
+                '--continue',  # 断点续传
+                '--no-part',  # 不使用 .part 文件（避免残留）
                 '-o', output_template,
                 '--extractor-args', 'youtubetab:skip=authcheck',
                 video_url

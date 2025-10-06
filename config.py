@@ -24,3 +24,11 @@ VIDEO_EXTS = ('.mp4', '.mkv', '.webm')
 
 # 模糊匹配阈值 (0-1, 越高越严格)
 MATCH_THRESHOLD = 0.9
+
+# 网络控制配置
+LIMIT_RATE = "2M"  # 限制下载速度："2M"=2MB/s, "500K"=500KB/s, None=不限速
+RETRIES = 10  # 重试次数
+RETRY_SLEEP = 10  # 重试间隔（秒）
+BUFFER_SIZE = "16M"  # 缓冲区大小
+CONCURRENT_FRAGMENTS = 1  # 并发片段数（1=单线程，降低CPU和带宽占用）
+TIMEOUT = 30  # 超时时间（秒）
